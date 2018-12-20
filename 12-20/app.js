@@ -29,7 +29,7 @@
 // james.emit('speak','hey dudes');
 // ryu.emit('speak','I want a curry');
 
-var fs = require('fs');
+//var fs = require('fs');
 
 //var readMe = fs.readFileSync('readme.txt','utf8');
 //console.log(readMe);
@@ -45,11 +45,21 @@ var fs = require('fs');
 
 //fs.mkdirSync('stuff');
 // fs.rmdirSync('stuff');
+//
+// fs.mkdir('stuff',function(){
+//   fs.readFile('readMe.txt','utf8',function(err,data){
+//     fs.writeFile('./stuff/writeMe.txt',data,(err)=>{
+//       if (err) throw err;
+//     });
+//   });
+// })
 
-fs.mkdir('stuff',function(){
-  fs.readFile('readMe.txt','utf8',function(err,data){
-    fs.writeFile('./stuff/writeMe.txt',data,(err)=>{
-      if (err) throw err;
-    });
-  });
-})
+var http = require('http');
+
+var server = http.createServer(function(req,res){
+  res.writeHead(200,{'Content-Type': 'text/plain'});
+  res.end('Hey Ninjas');
+});
+
+server.listen(3000,'127.0.0.1');
+console.log('yo dawgs,now listen to port 3000');
