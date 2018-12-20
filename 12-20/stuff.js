@@ -3,7 +3,7 @@ var counter = function(arr){
 }
 
 var adder =  function(a,b) {
-  return 'The sum of the 2 number is '+ a+b;
+  return 'The sum of the 2 number is '+ (a+b);
 };
 
 console.log(adder(5,6));
