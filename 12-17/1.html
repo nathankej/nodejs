@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <style media="screen">
+      #ul1 {width:400px;height:300px;border:1px solid black;overflow:auto;}
+    </style>
+    <script src="http://localhost:8080/socket.io/socket.io.js" charset="utf-8"></script>
+    <script>
+      let sock = io.connect('ws://localhost:8080/');
+
+      //chat room
+      window.onload=function (){
+        let oTxt = document.getElementById('txt1');
+        let oBtn=document.getElementById('btn1');
+        let oUI=document.getElementById('ul1');
+
+        oBtn.onclick=function(){
+          sock.emit('msg',oTxt.value);
+        };
+
+        sock.on('msg',str=>{
+          let oLi=document.createElement('li');
+          oLi.innerHTML=str;
+          oUL.appendChild(oLi);
+        })
+      };
+
+      sock.emit('name',parameter);
+      sock.on
+    </script>
+  </head>
+  <body>
+    <ul>
+      <ul id="ul1">
+      </ul>
+      <textarea rows="8" cols="80" id="txt1"></textarea>
+      <input type="button" name="" value="send" id="btn1">
+    </ul>
+  </body>
+</html>
