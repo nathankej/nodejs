@@ -54,12 +54,66 @@
 //   });
 // })
 
-var http = require('http');
+//11 clinet server
 
-var server = http.createServer(function(req,res){
-  res.writeHead(200,{'Content-Type': 'text/plain'});
-  res.end('Hey Ninjas');
+// var http = require('http');
+//
+// var server = http.createServer(function(req,res){
+//   res.writeHead(200,{'Content-Type': 'text/plain'});
+//   res.end('Hey Ninjas');
+// });
+//
+// server.listen(3000,'127.0.0.1');
+// console.log('yo dawgs,now listen to port 3000');
+
+//13 stream and buffers
+// var http =require('http');
+// var fs = require('fs');
+//
+// var server = http.createServer(function(req,res){
+//   console.log('request was made: ' + req.url);
+//   res.writeHead(200,{'Content-Type': 'text/plain'});
+//   var myReadStream = fs.createReadStream(__dirname + '/readMe.txt');
+//   var myWriteStream = fs.createWriteStream(__dirname + '/writeMe.txt');
+//   myReadStream.pipe(myWriteStream);
+//   res.end('Hey Ninjas');
+// });
+//
+// server.listen(3000,'127.0.0.1');
+// console.log('yo dawgs,now listen to port 3000');
+
+
+// myReadStream.on('data',function(chunk){
+//   console.log('new chunk received');
+//   myWriteStream.write(chunk);
+// });
+var express = require('express');
+var bodyParser = require('body-parser');
+var app = express();
+var urlencodedParser = bodyParser.urlencoded({ extended: false });
+
+app.engine('ejs',require('ejs').renderFile);
+app.set('view engine','ejs');
+app.use('/assets',express.static('assets'));
+
+
+app.get('/',function(req,res){
+  res.render('index');
 });
 
-server.listen(3000,'127.0.0.1');
-console.log('yo dawgs,now listen to port 3000');
+app.get('/contact',function(req,res){
+  //console.log(req.query);
+  res.render('contact',{qs:req.query});
+});
+
+app.post('/contact',urlencodedParser,function(req,res){
+  console.log(req.body);
+  res.render('contact-success',{data:req.body});
+});
+
+app.get('/profile/:name',function(req,res){
+  var data = {age:29,job:'ninja',hobbies:['eating','fighting','travelling']}
+  res.render('profile',{person:req.params.name,data:data});
+});
+
+app.listen(3000);
